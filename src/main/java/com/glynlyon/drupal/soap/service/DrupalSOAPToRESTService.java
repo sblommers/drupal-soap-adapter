@@ -2,6 +2,9 @@ package com.glynlyon.drupal.soap.service;
 
 import java.util.List;
 
+import javax.jws.WebService;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.glynlyon.drupal.soap.generated.Customer;
@@ -11,11 +14,23 @@ import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
 
-public class DrupalSOAPToRESTService implements DrupalSOAPAdapter {
+
+/**
+ * @author Preston Lee
+ *
+ */
+@WebService
+public class DrupalSOAPToRESTService  implements DrupalSOAPAdapter {
+
+	// FIXME Hard-coded URL.
+	public final String DRUPAL_REST_URL = "http://updates2sub-aophs.gotpantheon.com/rest";
+	public final String PRODUCT_PATH = "/product";
 
 	@Override
 	public Customer customerCreate(Customer customer) {
 		// TODO Auto-generated method stub
+		Client c = ClientBuilder.newClient();
+
 		return null;
 	}
 
