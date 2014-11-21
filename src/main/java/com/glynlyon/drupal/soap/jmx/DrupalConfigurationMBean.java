@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 public class DrupalConfigurationMBean implements IDrupalConfigurationMBean {
 
 	/** Intended to be set an run-time via JMX. */
-	protected String url = "http://localhost/rest";
+//	protected String url = "http://localhost/rest";
+	protected String url = "http://dynamics-aophs.gotpantheon.com/gp";
+
 
 	/** Intended to be set an run-time via JMX. */
 	protected String username = "admin";
