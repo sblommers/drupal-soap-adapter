@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.glynlyon.drupal.soap.generated.Customer;
 import com.glynlyon.drupal.soap.generated.CustomerRetrieve;
@@ -14,6 +14,8 @@ import com.glynlyon.drupal.soap.generated.CustomerRetrieveResponse;
 import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
+import com.glynlyon.drupal.soap.jmx.IDrupalConfigurationMBean;
+import com.sun.istack.internal.logging.Logger;
 
 /**
  * @author Preston Lee
@@ -22,15 +24,12 @@ import com.glynlyon.drupal.soap.generated.Product;
 @WebService
 public class DrupalSOAPToRESTService implements DrupalSOAPAdapter {
 
-	// FIXME Hard-coded URL.
-	public final String DRUPAL_REST_URL = "http://updates2sub-aophs.gotpantheon.com/rest";
-	public final String PRODUCT_PATH = "/product";
+	@Autowired
+	protected IDrupalConfigurationMBean drupalConfiguration;
 
 	@Override
 	public Customer customerCreate(Customer customer) {
-		// TODO Auto-generated method stub
-		// Client c = ClientBuilder.newClient();
-//		Customer c = new Customer();
+//		System.err.println(drupalConfiguration.getUrl());
 		return customer;
 	}
 
@@ -68,7 +67,7 @@ public class DrupalSOAPToRESTService implements DrupalSOAPAdapter {
 	public CustomerRetrieveResponse customerRetrieve(CustomerRetrieve parameters) {
 		// TODO Auto-generated method stub
 		CustomerRetrieveResponse r = new CustomerRetrieveResponse();
-//		r.
+		// r.
 		return null;
 	}
 

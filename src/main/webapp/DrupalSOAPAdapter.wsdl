@@ -714,7 +714,7 @@
 
 	<wsdl:service name="DrupalSOAPAdapterService">
 		<wsdl:port binding="impl:DrupalSOAPAdapterSoapBinding" name="DrupalSOAPAdapter">
-			<wsdlsoap:address location="http://localhost:8080/drupal-soap/services/DrupalSOAPAdapter"/>
+			<wsdlsoap:address location="http://localhost:8080/drupal-soap-adapter/services/DrupalSOAPAdapter"/>
 		</wsdl:port>
 	</wsdl:service>
 
