@@ -15,7 +15,6 @@ import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
 import com.glynlyon.drupal.soap.jmx.IDrupalConfigurationMBean;
-import com.sun.istack.internal.logging.Logger;
 
 /**
  * @author Preston Lee
