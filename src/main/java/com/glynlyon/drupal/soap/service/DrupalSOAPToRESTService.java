@@ -1,5 +1,6 @@
 package com.glynlyon.drupal.soap.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -14,13 +15,12 @@ import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
 
-
 /**
  * @author Preston Lee
  *
  */
 @WebService
-public class DrupalSOAPToRESTService  implements DrupalSOAPAdapter {
+public class DrupalSOAPToRESTService implements DrupalSOAPAdapter {
 
 	// FIXME Hard-coded URL.
 	public final String DRUPAL_REST_URL = "http://updates2sub-aophs.gotpantheon.com/rest";
@@ -29,21 +29,21 @@ public class DrupalSOAPToRESTService  implements DrupalSOAPAdapter {
 	@Override
 	public Customer customerCreate(Customer customer) {
 		// TODO Auto-generated method stub
-		Client c = ClientBuilder.newClient();
-
-		return null;
+		// Client c = ClientBuilder.newClient();
+//		Customer c = new Customer();
+		return customer;
 	}
 
 	@Override
 	public Product productUpdate(Product product) {
 		// TODO Auto-generated method stub
-		return null;
+		return product;
 	}
 
 	@Override
 	public Order orderCreate(Order order) {
 		// TODO Auto-generated method stub
-		return null;
+		return order;
 	}
 
 	@Override
@@ -55,18 +55,20 @@ public class DrupalSOAPToRESTService  implements DrupalSOAPAdapter {
 	@Override
 	public Order orderUpdate(Order order) {
 		// TODO Auto-generated method stub
-		return null;
+		return order;
 	}
 
 	@Override
 	public Product productRetrieve(String sku) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Product();
 	}
 
 	@Override
 	public CustomerRetrieveResponse customerRetrieve(CustomerRetrieve parameters) {
 		// TODO Auto-generated method stub
+		CustomerRetrieveResponse r = new CustomerRetrieveResponse();
+//		r.
 		return null;
 	}
 
@@ -97,7 +99,9 @@ public class DrupalSOAPToRESTService  implements DrupalSOAPAdapter {
 	@Override
 	public List<Order> ordersUpdatedSince(XMLGregorianCalendar date) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Order> results = new ArrayList<Order>();
+		results.add(new Order());
+		return results;
 	}
 
 }
