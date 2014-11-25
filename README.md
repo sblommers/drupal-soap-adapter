@@ -1,7 +1,7 @@
 Drupal SOAP Adapter
 ====
 
-This Java web application provides a statically-type SOAP WSDL and endpoint for accessing a Drupal system using the built-in REST capabilities of [Drupal's "Services" module](https://www.drupal.org/project/services). Support for the following resource types is included:
+This Java web application provides a statically-type SOAP WSDL and endpoint for accessing a [Drupal](https://www.drupal.org) system using the built-in REST capabilities of [Drupal's "Services" module](https://www.drupal.org/project/services). Support for the following resource types is included:
 
  * /product
  * /order
