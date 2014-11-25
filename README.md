@@ -28,13 +28,18 @@ Deployment Quick Start
 ![JConsole MBean Location](doc/jconsole-mbean.png?raw=true)
 ![JConsole MBean Attributes](doc/jconsole-url.png?raw=true)
 
+If your setup is functioning correctly, you should see something like the following in SoapUI (or whatever SOAP client you're using):
+
+![SoapUI Orders Updated Since](doc/soapui-orders-updated-since.png)
+![SoapUI Customers Updated Since](doc/soapui-customers-updated-since.png)
+
 Development
 ----
 Project configuration files have been included for Eclipse, though any sane Java development will work. The project is built using:
 
  * Java 8 (but is set to compile for Java 7)
  * [Spring](http://projects.spring.io/spring-framework/) - Basic dependency injection and autowiring.
- * [Apache CXF](http://cxf.apache.org) - Generates Java model POJOs and SOAP wrapper classes based on the *.wsdl file.\
+ * [Apache CXF](http://cxf.apache.org) - Generates Java model POJOs and SOAP wrapper classes based on the hand-crafted *.wsdl file.
  * [Apache HttpClient](http://hc.apache.org) w/Fluent - REST client libraries for crust-free calls.
  * [Jackson](https://github.com/FasterXML/jackson) - JSON unmarshalling/marshalling to/from POJOs.
 
