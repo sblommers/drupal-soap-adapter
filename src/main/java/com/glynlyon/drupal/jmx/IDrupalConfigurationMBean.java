@@ -1,4 +1,4 @@
-package com.glynlyon.drupal.soap.jmx;
+package com.glynlyon.drupal.jmx;
 
 /**
  * @author Preston Lee

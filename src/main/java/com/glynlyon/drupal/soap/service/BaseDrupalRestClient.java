@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.glynlyon.drupal.jmx.IDrupalConfigurationMBean;
 import com.glynlyon.drupal.rest.model.DrupalCustomer;
 import com.glynlyon.drupal.rest.model.DrupalOrder;
 import com.glynlyon.drupal.rest.model.DrupalProduct;
@@ -32,7 +33,6 @@ import com.glynlyon.drupal.rest.model.IDrupalModel;
 import com.glynlyon.drupal.soap.generated.Customer;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
-import com.glynlyon.drupal.soap.jmx.IDrupalConfigurationMBean;
 
 /**
  * A base Drupal REST client, providing constants and methods to handle common

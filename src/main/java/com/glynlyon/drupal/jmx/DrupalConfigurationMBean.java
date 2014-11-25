@@ -1,4 +1,4 @@
-package com.glynlyon.drupal.soap.jmx;
+package com.glynlyon.drupal.jmx;
 
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedResource;
