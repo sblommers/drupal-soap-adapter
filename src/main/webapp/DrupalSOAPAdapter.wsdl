@@ -258,7 +258,7 @@
 			</simpleType>
 				
 			<complexType name="address">
-				<all>
+				<sequence>
 					<element name="id" type="int" />
 					<element name="status" type="int" />
 					<element name="type" type="impl:addressType" />
@@ -273,10 +273,10 @@
 					<element name="phone" type="impl:string16" />
 					<element name="email" type="impl:string64" />
 					<element name="new_to_home_schooling" type="xsd:boolean" />
-					<element name="payment_profile_identifiers" type="string" minOccurs="0" />
+					<element name="payment_profile_identifiers" type="string" minOccurs="0" maxOccurs="unbounded" />
 					<element name="created" type="xsd:dateTime" />
 					<element name="updated" type="xsd:dateTime" />
-				</all>
+				</sequence>
 			</complexType>
 
 			<complexType name="lineItem">
@@ -314,18 +314,24 @@
 
 			<complexType name="customer">
 				<all>
-					<element name="id" type="int" />
-					<element name="user" type="impl:user" />
-					<element name="email" type="impl:string64" />
-					<element minOccurs="0" name="addresses" type="impl:address" />
-					<element minOccurs="0" name="cards" type="impl:card" />
-					<element name="created" type="dateTime" />
-					<element name="updated" type="dateTime" />
+					<element name="uid" nillable="true"  type="int" />
+					<element name="name" type="string" />
+					<element name="mail" type="impl:string64" />
+					<element name="theme" nillable="true"  type="string" />
+					<element name="signature" nillable="true"  type="string" />
+					<element name="signature_format" nillable="true"  type="string" />
+					<element name="created" nillable="true"  type="dateTime" />
+					<element name="access" nillable="true"  type="dateTime" />
+					<element name="login" nillable="true"  type="dateTime" />
+					<element name="status" type="string" />
+					<element name="timezone" nillable="true"  type="string" />
+					<element name="init" nillable="true"  type="string" />
+					<element name="uuid" nillable="true" type="string" />
 				</all>
 			</complexType>
 
 			<complexType name="order">
-				<all>
+				<sequence>
 					<element name="orderNumber" type="int" />
 					<element name="revisionId" type="int" />
 					<element name="revisionUid" type="int" />
@@ -334,24 +340,20 @@
 					<element name="log" type="string" />
 					<element name="revisionTimestamp" type="dateTime" />
 					<element name="revisionHostname" type="string" />
-					<element name="data" type="impl:orderData" />
+<!-- 					<element name="data" type="impl:orderData" /> -->
 					<element name="orderId" type="string" />
 					<element name="type" type="string" />
 					<element name="uid" type="int" />
 					<element name="created" type="dateTime" />
 					<element name="changed" type="dateTime" />
 					<element name="hostname" type="string" />
-					<!-- 
- 					<element name="commerceCustomerBilling" type="string" />
-					<element name="commerceCustomerShipping" type="string" /> -->
- 					<element name="fieldSalesRepId" nillable="true" type="string" minOccurs="0" />
-  					<element name="fieldAopOrderNumber" nillable="true" type="string" minOccurs="0" />
- 					<element name="fieldActivationCodes" type="string" minOccurs="0" />
+ 					<element name="fieldSalesRepId" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
+  					<element name="fieldAopOrderNumber" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
+ 					<element name="fieldActivationCodes" type="string" minOccurs="0" maxOccurs="unbounded" />
  					<element name="commerceOrderTotalFormatted" type="string" />
-<!--   					<element name="commerceLineItems" type="string" minOccurs="0" maxOccurs="unbounded" /> -->
-					<element name="commerceOrderTotal" type="impl:orderTotal" />
- 					<element name="commerceDiscounts" type="string" minOccurs="0" />
-				</all>
+<!-- 					<element name="commerceOrderTotal" type="impl:orderTotal" /> -->
+ 					<element name="commerceDiscounts" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
 			</complexType>
 
 			<complexType name="orderTotal">

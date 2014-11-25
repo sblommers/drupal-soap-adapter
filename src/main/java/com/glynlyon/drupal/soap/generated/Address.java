@@ -1,6 +1,8 @@
 
 package com.glynlyon.drupal.soap.generated;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * &lt;complexType name="address">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;all>
+ *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="type" type="{http://soap.drupal.glynlyon.com}addressType"/>
@@ -33,10 +35,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="phone" type="{http://soap.drupal.glynlyon.com}string16"/>
  *         &lt;element name="email" type="{http://soap.drupal.glynlyon.com}string64"/>
  *         &lt;element name="new_to_home_schooling" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="payment_profile_identifiers" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="payment_profile_identifiers" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="created" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="updated" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *       &lt;/all>
+ *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,7 +48,23 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "address", propOrder = {
-
+    "id",
+    "status",
+    "type",
+    "firstName",
+    "lastName",
+    "address1",
+    "address2",
+    "city",
+    "state",
+    "country",
+    "postalCode",
+    "phone",
+    "email",
+    "newToHomeSchooling",
+    "paymentProfileIdentifiers",
+    "created",
+    "updated"
 })
 public class Address {
 
@@ -78,7 +96,7 @@ public class Address {
     @XmlElement(name = "new_to_home_schooling")
     protected boolean newToHomeSchooling;
     @XmlElement(name = "payment_profile_identifiers")
-    protected String paymentProfileIdentifiers;
+    protected List<String> paymentProfileIdentifiers;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar created;
@@ -401,25 +419,30 @@ public class Address {
     /**
      * Gets the value of the paymentProfileIdentifiers property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPaymentProfileIdentifiers() {
-        return paymentProfileIdentifiers;
-    }
-
-    /**
-     * Sets the value of the paymentProfileIdentifiers property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the paymentProfileIdentifiers property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPaymentProfileIdentifiers().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setPaymentProfileIdentifiers(String value) {
-        this.paymentProfileIdentifiers = value;
+    public List<String> getPaymentProfileIdentifiers() {
+        if (paymentProfileIdentifiers == null) {
+            paymentProfileIdentifiers = new ArrayList<String>();
+        }
+        return this.paymentProfileIdentifiers;
     }
 
     /**

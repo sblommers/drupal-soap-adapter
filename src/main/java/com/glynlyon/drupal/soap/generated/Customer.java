@@ -19,13 +19,19 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="user" type="{http://soap.drupal.glynlyon.com}user"/>
- *         &lt;element name="email" type="{http://soap.drupal.glynlyon.com}string64"/>
- *         &lt;element name="addresses" type="{http://soap.drupal.glynlyon.com}address" minOccurs="0"/>
- *         &lt;element name="cards" type="{http://soap.drupal.glynlyon.com}card" minOccurs="0"/>
+ *         &lt;element name="uid" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mail" type="{http://soap.drupal.glynlyon.com}string64"/>
+ *         &lt;element name="theme" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="signature_format" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="created" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="updated" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="access" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="login" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="timezone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="init" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="uuid" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/all>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,130 +46,178 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class Customer {
 
-    protected int id;
+    @XmlElement(required = true, type = Integer.class, nillable = true)
+    protected Integer uid;
     @XmlElement(required = true)
-    protected String user;
+    protected String name;
     @XmlElement(required = true)
-    protected String email;
-    protected Address addresses;
-    protected Card cards;
-    @XmlElement(required = true)
+    protected String mail;
+    @XmlElement(required = true, nillable = true)
+    protected String theme;
+    @XmlElement(required = true, nillable = true)
+    protected String signature;
+    @XmlElement(name = "signature_format", required = true, nillable = true)
+    protected String signatureFormat;
+    @XmlElement(required = true, nillable = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar created;
-    @XmlElement(required = true)
+    @XmlElement(required = true, nillable = true)
     @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar updated;
+    protected XMLGregorianCalendar access;
+    @XmlElement(required = true, nillable = true)
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar login;
+    @XmlElement(required = true)
+    protected String status;
+    @XmlElement(required = true, nillable = true)
+    protected String timezone;
+    @XmlElement(required = true, nillable = true)
+    protected String init;
+    @XmlElement(required = true, nillable = true)
+    protected String uuid;
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the uid property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
      */
-    public int getId() {
-        return id;
+    public Integer getUid() {
+        return uid;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the uid property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
      */
-    public void setId(int value) {
-        this.id = value;
+    public void setUid(Integer value) {
+        this.uid = value;
     }
 
     /**
-     * Gets the value of the user property.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Sets the value of the user property.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setUser(String value) {
-        this.user = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     /**
-     * Gets the value of the email property.
+     * Gets the value of the mail property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
     /**
-     * Sets the value of the email property.
+     * Sets the value of the mail property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setEmail(String value) {
-        this.email = value;
+    public void setMail(String value) {
+        this.mail = value;
     }
 
     /**
-     * Gets the value of the addresses property.
+     * Gets the value of the theme property.
      * 
      * @return
      *     possible object is
-     *     {@link Address }
+     *     {@link String }
      *     
      */
-    public Address getAddresses() {
-        return addresses;
+    public String getTheme() {
+        return theme;
     }
 
     /**
-     * Sets the value of the addresses property.
+     * Sets the value of the theme property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Address }
+     *     {@link String }
      *     
      */
-    public void setAddresses(Address value) {
-        this.addresses = value;
+    public void setTheme(String value) {
+        this.theme = value;
     }
 
     /**
-     * Gets the value of the cards property.
+     * Gets the value of the signature property.
      * 
      * @return
      *     possible object is
-     *     {@link Card }
+     *     {@link String }
      *     
      */
-    public Card getCards() {
-        return cards;
+    public String getSignature() {
+        return signature;
     }
 
     /**
-     * Sets the value of the cards property.
+     * Sets the value of the signature property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Card }
+     *     {@link String }
      *     
      */
-    public void setCards(Card value) {
-        this.cards = value;
+    public void setSignature(String value) {
+        this.signature = value;
+    }
+
+    /**
+     * Gets the value of the signatureFormat property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSignatureFormat() {
+        return signatureFormat;
+    }
+
+    /**
+     * Sets the value of the signatureFormat property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSignatureFormat(String value) {
+        this.signatureFormat = value;
     }
 
     /**
@@ -191,27 +245,147 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the updated property.
+     * Gets the value of the access property.
      * 
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getUpdated() {
-        return updated;
+    public XMLGregorianCalendar getAccess() {
+        return access;
     }
 
     /**
-     * Sets the value of the updated property.
+     * Sets the value of the access property.
      * 
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setUpdated(XMLGregorianCalendar value) {
-        this.updated = value;
+    public void setAccess(XMLGregorianCalendar value) {
+        this.access = value;
+    }
+
+    /**
+     * Gets the value of the login property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getLogin() {
+        return login;
+    }
+
+    /**
+     * Sets the value of the login property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setLogin(XMLGregorianCalendar value) {
+        this.login = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStatus(String value) {
+        this.status = value;
+    }
+
+    /**
+     * Gets the value of the timezone property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTimezone() {
+        return timezone;
+    }
+
+    /**
+     * Sets the value of the timezone property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTimezone(String value) {
+        this.timezone = value;
+    }
+
+    /**
+     * Gets the value of the init property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getInit() {
+        return init;
+    }
+
+    /**
+     * Sets the value of the init property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setInit(String value) {
+        this.init = value;
+    }
+
+    /**
+     * Gets the value of the uuid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUuid() {
+        return uuid;
+    }
+
+    /**
+     * Sets the value of the uuid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUuid(String value) {
+        this.uuid = value;
     }
 
 }

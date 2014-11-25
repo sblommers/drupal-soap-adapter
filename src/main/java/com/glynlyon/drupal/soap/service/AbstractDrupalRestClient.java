@@ -8,8 +8,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -25,6 +27,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ContainerNode;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.glynlyon.drupal.jmx.IDrupalConfigurationMBean;
 import com.glynlyon.drupal.rest.model.DrupalCustomer;
 import com.glynlyon.drupal.rest.model.DrupalOrder;
@@ -47,7 +53,7 @@ import com.glynlyon.drupal.soap.generated.Product;
  * @author Preston Lee
  *
  */
-public abstract class BaseDrupalRestClient {
+public abstract class AbstractDrupalRestClient {
 
 	@Autowired
 	protected IDrupalConfigurationMBean drupalConfiguration;
@@ -95,11 +101,10 @@ public abstract class BaseDrupalRestClient {
 	 * Default constructor that initializes internal structures. Sub-types
 	 * should call super() when subclassing.
 	 */
-	public BaseDrupalRestClient() {
+	public AbstractDrupalRestClient() {
 		mapper.addMixInAnnotations(XMLGregorianCalendar.class, CalendarMixIn.class);
-		// mapper.addMixInAnnotations(Order.class, OrderMixIn.class);
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		// mapper.configure(DeserializationFeature.);
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 	}
 
@@ -111,14 +116,45 @@ public abstract class BaseDrupalRestClient {
 	public JsonNode restructureDrupalJsonForJackson(final String json) {
 		JsonNode tree = null;
 		try {
-			tree = mapper.readTree(json);
-			for (JsonNode n : tree) {
-				System.out.println(n);
-			}
+			tree = restructureDrupalJsonForJackson(mapper.readTree(json));
 		} catch (final JsonProcessingException e) {
 			log.severe("Failed to parse JSON string. Something is probably broken." + e);
 		} catch (final IOException e) {
 			log.severe("Failed to parse JSON string. Something is probably broken." + e);
+		}
+		return tree;
+	}
+
+	public JsonNode restructureDrupalJsonForJackson(final JsonNode tree) {
+		for (JsonNode n : tree) {
+			// if(n.isContainerNode()) {
+			// @SuppressWarnings("rawtypes")
+			// ContainerNode cn = (ContainerNode) n;
+			// }
+			// switch (n.getNodeType()) {
+			// case OBJECT:
+			// ObjectNode on = (ObjectNode)n;
+			// Iterator<Entry<String, JsonNode>> fields = on.fields();
+			// while(fields.hasNext()) {
+			// Entry<String, JsonNode> next = fields.next();
+			// // If the key name is "und" or an integer, we'll restructure.
+			//
+			// }
+			// for (Map.Entry<String, JsonNode> e : on.fields()) {
+			//
+			// }
+			// break;
+			// case ARRAY:
+			// // Remove empty arrays
+			// ArrayNode an = (ArrayNode)n;
+			// if(an.size() == 0) {
+			// tree.
+			// }
+			// break;
+			// default:
+			// break;
+			// }
+			// System.out.println(n);
 		}
 		return tree;
 	}
@@ -227,20 +263,36 @@ public abstract class BaseDrupalRestClient {
 	/**
 	 * Generic method to retrieve records updated since some provided date. At
 	 * HTTP "GET" is always used for the call to Drupal with a query parameter
-	 * key of {@link BaseDrupalRestClient#SINCE_KEY}.
+	 * key of {@link AbstractDrupalRestClient#SINCE_KEY}.
 	 * 
 	 */
 	public <T> List<T> drupalUpdatedSince(final Class<T> clazz, final XMLGregorianCalendar date) {
-		List<T> results = new ArrayList<T>();
+		List<T> results = null;
 		URI uri = uriForUpdatedSince(clazz);
 		try {
 			URIBuilder uriBuilder = new URIBuilder(uri);
 			uriBuilder.setParameter(SINCE_KEY, date.toString());
 			uri = uriBuilder.build();
-			JsonNode tree = mapper.readTree(uri.toURL());
-			results = mapper.treeToValue(tree, results.getClass());
+			String json = Request.Get(uri).execute().returnContent().toString();
+			JsonNode tree = restructureDrupalJsonForJackson(json);
+			results = new ArrayList<T>();
+			for (JsonNode jsonNode : tree) {
+				JsonNodeType nodeType = tree.getNodeType();
+				switch (nodeType) {
+				case OBJECT:
+				case ARRAY:
+					T model = mapper.treeToValue(jsonNode, clazz);
+					results.add(model);
+					break;
+				default:
+					log.warning("Hmm.. Drupal returned a non-object where one was expected. It will be ignored. Returned JSON type: " + nodeType);
+					break;
+				}
+//				System.out.println(nodeType);
+			}
 		} catch (final Exception e) {
 			log.severe("Fatal error attempting to fetch updated " + clazz.getName() + " records. Provided 'since' date: " + date.toString());
+			log.severe(e.getMessage());
 		}
 		return results;
 	}

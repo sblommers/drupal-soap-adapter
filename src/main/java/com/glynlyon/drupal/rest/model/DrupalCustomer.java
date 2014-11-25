@@ -10,12 +10,12 @@ public class DrupalCustomer extends Customer implements IDrupalModel {
 
 	@Override
 	public String getPathId() {
-		return "" + this.getId();
+		return "" + this.getUid();
 	}
 
 	@Override
 	public void setPathId(final String id) {
-		this.setId(Integer.parseInt(id));
+		this.setUid(Integer.parseInt(id));
 	}
 
 }

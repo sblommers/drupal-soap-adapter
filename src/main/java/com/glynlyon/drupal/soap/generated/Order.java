@@ -1,11 +1,11 @@
 
 package com.glynlyon.drupal.soap.generated;
 
-import javax.xml.bind.JAXBElement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -20,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * &lt;complexType name="order">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;all>
+ *       &lt;sequence>
  *         &lt;element name="orderNumber" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="revisionId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="revisionUid" type="{http://www.w3.org/2001/XMLSchema}int"/>
@@ -29,20 +29,18 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="log" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="revisionTimestamp" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="revisionHostname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="data" type="{http://soap.drupal.glynlyon.com}orderData"/>
  *         &lt;element name="orderId" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="uid" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="created" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="changed" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="hostname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="fieldSalesRepId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="fieldAopOrderNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="fieldActivationCodes" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fieldSalesRepId" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="fieldAopOrderNumber" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="fieldActivationCodes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="commerceOrderTotalFormatted" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="commerceOrderTotal" type="{http://soap.drupal.glynlyon.com}orderTotal"/>
- *         &lt;element name="commerceDiscounts" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/all>
+ *         &lt;element name="commerceDiscounts" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -52,7 +50,25 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "order", propOrder = {
-
+    "orderNumber",
+    "revisionId",
+    "revisionUid",
+    "mail",
+    "status",
+    "log",
+    "revisionTimestamp",
+    "revisionHostname",
+    "orderId",
+    "type",
+    "uid",
+    "created",
+    "changed",
+    "hostname",
+    "fieldSalesRepId",
+    "fieldAopOrderNumber",
+    "fieldActivationCodes",
+    "commerceOrderTotalFormatted",
+    "commerceDiscounts"
 })
 public class Order {
 
@@ -71,8 +87,6 @@ public class Order {
     @XmlElement(required = true)
     protected String revisionHostname;
     @XmlElement(required = true)
-    protected OrderData data;
-    @XmlElement(required = true)
     protected String orderId;
     @XmlElement(required = true)
     protected String type;
@@ -85,16 +99,15 @@ public class Order {
     protected XMLGregorianCalendar changed;
     @XmlElement(required = true)
     protected String hostname;
-    @XmlElementRef(name = "fieldSalesRepId", namespace = "http://soap.drupal.glynlyon.com", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> fieldSalesRepId;
-    @XmlElementRef(name = "fieldAopOrderNumber", namespace = "http://soap.drupal.glynlyon.com", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> fieldAopOrderNumber;
-    protected String fieldActivationCodes;
+    @XmlElement(nillable = true)
+    protected List<String> fieldSalesRepId;
+    @XmlElement(nillable = true)
+    protected List<String> fieldAopOrderNumber;
+    protected List<String> fieldActivationCodes;
     @XmlElement(required = true)
     protected String commerceOrderTotalFormatted;
-    @XmlElement(required = true)
-    protected OrderTotal commerceOrderTotal;
-    protected String commerceDiscounts;
+    @XmlElement(nillable = true)
+    protected List<String> commerceDiscounts;
 
     /**
      * Gets the value of the orderNumber property.
@@ -265,30 +278,6 @@ public class Order {
     }
 
     /**
-     * Gets the value of the data property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link OrderData }
-     *     
-     */
-    public OrderData getData() {
-        return data;
-    }
-
-    /**
-     * Sets the value of the data property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link OrderData }
-     *     
-     */
-    public void setData(OrderData value) {
-        this.data = value;
-    }
-
-    /**
      * Gets the value of the orderId property.
      * 
      * @return
@@ -427,73 +416,88 @@ public class Order {
     /**
      * Gets the value of the fieldSalesRepId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getFieldSalesRepId() {
-        return fieldSalesRepId;
-    }
-
-    /**
-     * Sets the value of the fieldSalesRepId property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the fieldSalesRepId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFieldSalesRepId().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setFieldSalesRepId(JAXBElement<String> value) {
-        this.fieldSalesRepId = value;
+    public List<String> getFieldSalesRepId() {
+        if (fieldSalesRepId == null) {
+            fieldSalesRepId = new ArrayList<String>();
+        }
+        return this.fieldSalesRepId;
     }
 
     /**
      * Gets the value of the fieldAopOrderNumber property.
      * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getFieldAopOrderNumber() {
-        return fieldAopOrderNumber;
-    }
-
-    /**
-     * Sets the value of the fieldAopOrderNumber property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the fieldAopOrderNumber property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFieldAopOrderNumber().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setFieldAopOrderNumber(JAXBElement<String> value) {
-        this.fieldAopOrderNumber = value;
+    public List<String> getFieldAopOrderNumber() {
+        if (fieldAopOrderNumber == null) {
+            fieldAopOrderNumber = new ArrayList<String>();
+        }
+        return this.fieldAopOrderNumber;
     }
 
     /**
      * Gets the value of the fieldActivationCodes property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFieldActivationCodes() {
-        return fieldActivationCodes;
-    }
-
-    /**
-     * Sets the value of the fieldActivationCodes property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the fieldActivationCodes property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFieldActivationCodes().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setFieldActivationCodes(String value) {
-        this.fieldActivationCodes = value;
+    public List<String> getFieldActivationCodes() {
+        if (fieldActivationCodes == null) {
+            fieldActivationCodes = new ArrayList<String>();
+        }
+        return this.fieldActivationCodes;
     }
 
     /**
@@ -521,51 +525,32 @@ public class Order {
     }
 
     /**
-     * Gets the value of the commerceOrderTotal property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link OrderTotal }
-     *     
-     */
-    public OrderTotal getCommerceOrderTotal() {
-        return commerceOrderTotal;
-    }
-
-    /**
-     * Sets the value of the commerceOrderTotal property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link OrderTotal }
-     *     
-     */
-    public void setCommerceOrderTotal(OrderTotal value) {
-        this.commerceOrderTotal = value;
-    }
-
-    /**
      * Gets the value of the commerceDiscounts property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCommerceDiscounts() {
-        return commerceDiscounts;
-    }
-
-    /**
-     * Sets the value of the commerceDiscounts property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the commerceDiscounts property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCommerceDiscounts().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
      */
-    public void setCommerceDiscounts(String value) {
-        this.commerceDiscounts = value;
+    public List<String> getCommerceDiscounts() {
+        if (commerceDiscounts == null) {
+            commerceDiscounts = new ArrayList<String>();
+        }
+        return this.commerceDiscounts;
     }
 
 }

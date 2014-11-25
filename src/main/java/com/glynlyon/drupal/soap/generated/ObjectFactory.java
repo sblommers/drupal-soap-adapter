@@ -1,10 +1,7 @@
 
 package com.glynlyon.drupal.soap.generated;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
-import javax.xml.namespace.QName;
 
 
 /**
@@ -24,8 +21,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _OrderFieldSalesRepId_QNAME = new QName("http://soap.drupal.glynlyon.com", "fieldSalesRepId");
-    private final static QName _OrderFieldAopOrderNumber_QNAME = new QName("http://soap.drupal.glynlyon.com", "fieldAopOrderNumber");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.glynlyon.drupal.soap.generated
@@ -288,24 +283,6 @@ public class ObjectFactory {
      */
     public Card createCard() {
         return new Card();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://soap.drupal.glynlyon.com", name = "fieldSalesRepId", scope = Order.class)
-    public JAXBElement<String> createOrderFieldSalesRepId(String value) {
-        return new JAXBElement<String>(_OrderFieldSalesRepId_QNAME, String.class, Order.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://soap.drupal.glynlyon.com", name = "fieldAopOrderNumber", scope = Order.class)
-    public JAXBElement<String> createOrderFieldAopOrderNumber(String value) {
-        return new JAXBElement<String>(_OrderFieldAopOrderNumber_QNAME, String.class, Order.class, value);
     }
 
 }

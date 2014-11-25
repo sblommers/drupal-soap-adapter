@@ -10,12 +10,12 @@ public class DrupalProduct extends Product implements IDrupalModel {
 
 	@Override
 	public String getPathId() {
-		return getSku();
+		return "" + this.getProductId();
 	}
 
 	@Override
-	public void setPathId(String id) {
-		this.setSku(id);
+	public void setPathId(final String id) {
+		this.setProductId(Integer.parseInt(id));
 	}
 
 }

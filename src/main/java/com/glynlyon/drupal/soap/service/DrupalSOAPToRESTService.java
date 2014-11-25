@@ -19,7 +19,7 @@ import com.glynlyon.drupal.soap.generated.Product;
  * 
  * Concrete implementation class of the SOAP-to-REST Drupal web services
  * adapter, which mainly just delegates to generic REST client methods in #
- * {@link BaseDrupalRestClient}. This is the actual application-level entry
+ * {@link AbstractDrupalRestClient}. This is the actual application-level entry
  * point for individual SOAP operations, however, so if you need to debug this
  * application, start here!
  * 
@@ -27,7 +27,7 @@ import com.glynlyon.drupal.soap.generated.Product;
  *
  */
 @WebService
-public class DrupalSOAPToRESTService extends BaseDrupalRestClient implements DrupalSOAPAdapter {
+public class DrupalSOAPToRESTService extends AbstractDrupalRestClient implements DrupalSOAPAdapter {
 
 	@Override
 	public Customer customerCreate(final Customer customer) {
