@@ -24,9 +24,23 @@ Deployment Quick Start
    * **Url** - e.g. http://localhost:8080/drupal-soap-adapter/adapter
    * **Username** - Drupal account with permissions to hit the REST API, e.g. "admin" 
    * **Password** - Password for that Drupal account, e.g. "password"
+   
+### ***Getting*** current attributes via Tomcat's HTTP JMX Proxy:
+ * **URL**: http://hostname/manager/jmxproxy?get=Drupal:name=Drupal%20REST%20Services&att=Url
+ * **Username**: http://hostname/manager/jmxproxy?get=Drupal:name=Drupal%20REST%20Services&att=Username
+ * **Password**: http://hostname/manager/jmxproxy?get=Drupal:name=Drupal%20REST%20Services&att=Password
+
+### ***Setting*** configuration via Tomcat's HTTP JMX Proxy:
+ * **URL**: http://hostname/manager/jmxproxy?set=Drupal:name=Drupal%20REST%20Services&att=Url&val=http://drupal.example.com/rest
+ * **Username**: http://hostname/manager/jmxproxy?set=Drupal:name=Drupal%20REST%20Services&att=Username&val=my_user
+ * **Password**: http://hostname/manager/jmxproxy?set=Drupal:name=Drupal%20REST%20Services&att=Password&val=my_password
+
+### Getting/Setting configuration via `jconsole`
 
 ![JConsole MBean Location](doc/jconsole-mbean.png)
 ![JConsole MBean Attributes](doc/jconsole-url.png)
+
+
 
 If your setup is functioning correctly, you should see something like the following in SoapUI (or whatever SOAP client you're using):
 
