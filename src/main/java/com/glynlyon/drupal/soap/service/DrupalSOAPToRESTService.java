@@ -1,128 +1,107 @@
 package com.glynlyon.drupal.soap.service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.glynlyon.drupal.rest.model.DrupalCustomer;
+import com.glynlyon.drupal.rest.model.DrupalOrder;
+import com.glynlyon.drupal.rest.model.DrupalProduct;
 import com.glynlyon.drupal.soap.generated.Customer;
 import com.glynlyon.drupal.soap.generated.CustomerRetrieve;
 import com.glynlyon.drupal.soap.generated.CustomerRetrieveResponse;
 import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
-import com.glynlyon.drupal.soap.jmx.IDrupalConfigurationMBean;
 
 /**
+ * 
+ * Concrete implementation class of the SOAP-to-REST Drupal web services
+ * adapter, which mainly just delegates to generic REST client methods in #
+ * {@link BaseDrupalRestClient}. This is the actual application-level entry
+ * point for individual SOAP operations, however, so if you need to debug this
+ * application, start here!
+ * 
  * @author Preston Lee
  *
  */
 @WebService
-public class DrupalSOAPToRESTService implements DrupalSOAPAdapter {
+public class DrupalSOAPToRESTService extends BaseDrupalRestClient implements DrupalSOAPAdapter {
 
-	@Autowired
-	protected IDrupalConfigurationMBean drupalConfiguration;
-
-	public final static String ORDER_PATH = "/order";
-	public final static String SUFFIX = ".json";
-	public final static String MIME_TYPE = "application/json";
-
-	public URL orderUrlFor(String id) throws MalformedURLException {
-		return new URL(drupalConfiguration.getUrl() + ORDER_PATH + "/" + id + SUFFIX);
+	@Override
+	public Customer customerCreate(final Customer customer) {
+		DrupalCustomer c = drupalCreate(toSubType(customer, DrupalCustomer.class));
+		return c;
 	}
 
 	@Override
-	public Customer customerCreate(Customer customer) {
-		// System.err.println(drupalConfiguration.getUrl());
-		return customer;
-	}
-
-	@Override
-	public CustomerRetrieveResponse customerRetrieve(CustomerRetrieve parameters) {
-		// TODO Auto-generated method stub
+	public CustomerRetrieveResponse customerRetrieve(final CustomerRetrieve parameters) {
+		String id = parameters.getUserId();
+		DrupalCustomer o = drupalRetrieve(DrupalCustomer.class, id);
 		CustomerRetrieveResponse r = new CustomerRetrieveResponse();
-		// r.
+		r.setCustomerRetrieveReturn(o);
 		return r;
 	}
 
 	@Override
-	public Customer customerUpdate(Customer user) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer customerUpdate(final Customer customer) {
+		DrupalCustomer c = drupalUpdate(toSubType(customer, DrupalCustomer.class));
+		return c;
 	}
 
 	@Override
-	public List<Customer> customersUpdatedSince(XMLGregorianCalendar date) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Customer> customersUpdatedSince(final XMLGregorianCalendar date) {
+		List<Customer> updated = drupalUpdatedSince(Customer.class, date);
+		return updated;
 	}
 
 	@Override
-	public Order orderCreate(Order order) {
-		// TODO Auto-generated method stub
-		return order;
-	}
-
-	@Override
-	public Order orderRetrieve(String orderId) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.addMixInAnnotations(XMLGregorianCalendar.class, CalendarMixIn.class);
-		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-		Order o = null;
-		try {
-			URL url = orderUrlFor(orderId);
-			o = mapper.readValue(url, Order.class);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Order orderCreate(final Order order) {
+		DrupalOrder o = drupalCreate(toSubType(order, DrupalOrder.class));
 		return o;
 	}
 
 	@Override
-	public Order orderUpdate(Order order) {
-		// TODO Auto-generated method stub
-		return order;
+	public Order orderRetrieve(final String orderId) {
+		DrupalOrder o = drupalRetrieve(DrupalOrder.class, orderId);
+		return o;
 	}
 
 	@Override
-	public List<Order> ordersUpdatedSince(XMLGregorianCalendar date) {
-		// TODO Auto-generated method stub
-		ArrayList<Order> results = new ArrayList<Order>();
-		results.add(new Order());
-		return results;
+	public Order orderUpdate(final Order order) {
+		DrupalOrder o = drupalUpdate(toSubType(order, DrupalOrder.class));
+		return o;
 	}
 
 	@Override
-	public Product productCreate(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> ordersUpdatedSince(final XMLGregorianCalendar date) {
+		List<Order> list = drupalUpdatedSince(Order.class, date);
+		return list;
 	}
 
 	@Override
-	public Product productRetrieve(String sku) {
-		// TODO Auto-generated method stub
-		return new Product();
+	public Product productCreate(final Product product) {
+		DrupalProduct p = drupalCreate(toSubType(product, DrupalProduct.class));
+		return p;
 	}
 
 	@Override
-	public Product productUpdate(Product product) {
-		// TODO Auto-generated method stub
-		return product;
+	public Product productRetrieve(final String sku) {
+		DrupalProduct p = drupalRetrieve(DrupalProduct.class, sku);
+		return p;
 	}
 
 	@Override
-	public List<Product> productsUpdatedSince(XMLGregorianCalendar date) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product productUpdate(final Product product) {
+		DrupalProduct p = drupalUpdate(toSubType(product, DrupalProduct.class));
+		return p;
+	}
+
+	@Override
+	public List<Product> productsUpdatedSince(final XMLGregorianCalendar date) {
+		List<Product> list = drupalUpdatedSince(Product.class, date);
+		return list;
 	}
 
 }
