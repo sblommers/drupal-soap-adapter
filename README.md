@@ -25,8 +25,8 @@ Deployment Quick Start
    * **Username** - Drupal account with permissions to hit the REST API, e.g. "admin" 
    * **Password** - Password for that Drupal account, e.g. "password"
 
-![JConsole MBean Location](doc/jconsole-mbean.png?raw=true)
-![JConsole MBean Attributes](doc/jconsole-url.png?raw=true)
+![JConsole MBean Location](doc/jconsole-mbean.png)
+![JConsole MBean Attributes](doc/jconsole-url.png)
 
 If your setup is functioning correctly, you should see something like the following in SoapUI (or whatever SOAP client you're using):
 
