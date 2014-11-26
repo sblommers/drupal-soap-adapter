@@ -30,22 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ProductCreateResponse }
-     * 
-     */
-    public ProductCreateResponse createProductCreateResponse() {
-        return new ProductCreateResponse();
-    }
-
-    /**
-     * Create an instance of {@link Product }
-     * 
-     */
-    public Product createProduct() {
-        return new Product();
-    }
-
-    /**
      * Create an instance of {@link OrderRetrieveResponse }
      * 
      */
@@ -94,19 +78,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OrderCreateResponse }
+     * Create an instance of {@link Product }
      * 
      */
-    public OrderCreateResponse createOrderCreateResponse() {
-        return new OrderCreateResponse();
+    public Product createProduct() {
+        return new Product();
     }
 
     /**
-     * Create an instance of {@link OrderCreate }
+     * Create an instance of {@link LineItemUpdate }
      * 
      */
-    public OrderCreate createOrderCreate() {
-        return new OrderCreate();
+    public LineItemUpdate createLineItemUpdate() {
+        return new LineItemUpdate();
+    }
+
+    /**
+     * Create an instance of {@link LineItem }
+     * 
+     */
+    public LineItem createLineItem() {
+        return new LineItem();
     }
 
     /**
@@ -126,27 +118,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CustomerRetrieveResponse }
-     * 
-     */
-    public CustomerRetrieveResponse createCustomerRetrieveResponse() {
-        return new CustomerRetrieveResponse();
-    }
-
-    /**
-     * Create an instance of {@link OrderUpdate }
-     * 
-     */
-    public OrderUpdate createOrderUpdate() {
-        return new OrderUpdate();
-    }
-
-    /**
      * Create an instance of {@link ProductRetrieve }
      * 
      */
     public ProductRetrieve createProductRetrieve() {
         return new ProductRetrieve();
+    }
+
+    /**
+     * Create an instance of {@link LineItemRetrieve }
+     * 
+     */
+    public LineItemRetrieve createLineItemRetrieve() {
+        return new LineItemRetrieve();
     }
 
     /**
@@ -163,6 +147,22 @@ public class ObjectFactory {
      */
     public CustomerUpdateResponse createCustomerUpdateResponse() {
         return new CustomerUpdateResponse();
+    }
+
+    /**
+     * Create an instance of {@link LineItemCreateResponse }
+     * 
+     */
+    public LineItemCreateResponse createLineItemCreateResponse() {
+        return new LineItemCreateResponse();
+    }
+
+    /**
+     * Create an instance of {@link LineItemRetrieveResponse }
+     * 
+     */
+    public LineItemRetrieveResponse createLineItemRetrieveResponse() {
+        return new LineItemRetrieveResponse();
     }
 
     /**
@@ -214,6 +214,86 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LineItemsUpdatedSinceResponse }
+     * 
+     */
+    public LineItemsUpdatedSinceResponse createLineItemsUpdatedSinceResponse() {
+        return new LineItemsUpdatedSinceResponse();
+    }
+
+    /**
+     * Create an instance of {@link ProductRetrieveResponse }
+     * 
+     */
+    public ProductRetrieveResponse createProductRetrieveResponse() {
+        return new ProductRetrieveResponse();
+    }
+
+    /**
+     * Create an instance of {@link ProductCreateResponse }
+     * 
+     */
+    public ProductCreateResponse createProductCreateResponse() {
+        return new ProductCreateResponse();
+    }
+
+    /**
+     * Create an instance of {@link LineItemUpdateResponse }
+     * 
+     */
+    public LineItemUpdateResponse createLineItemUpdateResponse() {
+        return new LineItemUpdateResponse();
+    }
+
+    /**
+     * Create an instance of {@link OrderCreateResponse }
+     * 
+     */
+    public OrderCreateResponse createOrderCreateResponse() {
+        return new OrderCreateResponse();
+    }
+
+    /**
+     * Create an instance of {@link OrderCreate }
+     * 
+     */
+    public OrderCreate createOrderCreate() {
+        return new OrderCreate();
+    }
+
+    /**
+     * Create an instance of {@link CustomerRetrieveResponse }
+     * 
+     */
+    public CustomerRetrieveResponse createCustomerRetrieveResponse() {
+        return new CustomerRetrieveResponse();
+    }
+
+    /**
+     * Create an instance of {@link OrderUpdate }
+     * 
+     */
+    public OrderUpdate createOrderUpdate() {
+        return new OrderUpdate();
+    }
+
+    /**
+     * Create an instance of {@link LineItemsUpdatedSince }
+     * 
+     */
+    public LineItemsUpdatedSince createLineItemsUpdatedSince() {
+        return new LineItemsUpdatedSince();
+    }
+
+    /**
+     * Create an instance of {@link LineItemCreate }
+     * 
+     */
+    public LineItemCreate createLineItemCreate() {
+        return new LineItemCreate();
+    }
+
+    /**
      * Create an instance of {@link OrderRetrieve }
      * 
      */
@@ -227,14 +307,6 @@ public class ObjectFactory {
      */
     public OrdersUpdatedSince createOrdersUpdatedSince() {
         return new OrdersUpdatedSince();
-    }
-
-    /**
-     * Create an instance of {@link ProductRetrieveResponse }
-     * 
-     */
-    public ProductRetrieveResponse createProductRetrieveResponse() {
-        return new ProductRetrieveResponse();
     }
 
     /**
@@ -254,19 +326,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CustomerShipping }
+     * 
+     */
+    public CustomerShipping createCustomerShipping() {
+        return new CustomerShipping();
+    }
+
+    /**
+     * Create an instance of {@link CustomerBilling }
+     * 
+     */
+    public CustomerBilling createCustomerBilling() {
+        return new CustomerBilling();
+    }
+
+    /**
      * Create an instance of {@link OrderTotal }
      * 
      */
     public OrderTotal createOrderTotal() {
         return new OrderTotal();
-    }
-
-    /**
-     * Create an instance of {@link LineItem }
-     * 
-     */
-    public LineItem createLineItem() {
-        return new LineItem();
     }
 
     /**

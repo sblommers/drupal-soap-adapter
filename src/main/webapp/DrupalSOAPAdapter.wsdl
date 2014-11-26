@@ -5,7 +5,6 @@
 	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<wsdl:documentation>
 		Service: DrupalSOAP
-		Version: 0.3.1
 		Owner: Preston Lee
 	</wsdl:documentation>
 	<wsdl:types>
@@ -70,6 +69,64 @@
 			</element>
 
 
+			<element name="lineItemCreate">
+				<complexType>
+					<sequence>
+						<element name="lineItem" type="impl:lineItem" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="lineItemCreateResponse">
+				<complexType>
+					<sequence>
+						<element name="lineItemCreateReturn" type="impl:lineItem" />
+					</sequence>
+				</complexType>
+			</element>
+            <element name="lineItemRetrieve">
+				<complexType>
+					<choice>
+						<element name="user_id" type="string" />
+					</choice>
+				</complexType>
+            </element>
+			<element name="lineItemRetrieveResponse">
+				<complexType>
+					<sequence>
+						<element name="lineItemRetrieveReturn" type="impl:lineItem" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="lineItemUpdate">
+				<complexType>
+					<sequence>
+						<element name="user" type="impl:lineItem" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="lineItemUpdateResponse">
+				<complexType>
+					<sequence>
+						<element name="lineItemUpdateReturn" type="impl:lineItem" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="lineItemsUpdatedSince">
+				<complexType>
+					<sequence>
+						<element name="date" type="xsd:dateTime" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="lineItemsUpdatedSinceResponse">
+				<complexType>
+					<sequence>
+						<element name="lineItemsUpdatedSinceReturn" type="impl:lineItem" minOccurs="0" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+			
 			<element name="orderCreate">
 				<complexType>
 					<sequence>
@@ -187,62 +244,15 @@
 			</element>
 
 
-<!-- 			<complexType name="stringArray">
-				<sequence>
-					<element minOccurs="0" maxOccurs="unbounded" name="strings" nillable="true" type="string" />
-				</sequence>
-			</complexType> -->
-<!-- 			<simpleType name="positiveFloat">
-				<restriction base="xsd:float">
-					<minInclusive value="0.0" />
-				</restriction>
-			</simpleType>
- -->			<simpleType name="countryCode">
+			<simpleType name="countryCode">
 				<restriction base="xsd:string">
 					<minLength value="0" />
 					<maxLength value="2" />
 				</restriction>
 			</simpleType>
-			<simpleType name="string8">
-				<restriction base="xsd:string">
-					<minLength value="0" />
-					<maxLength value="8" />
-				</restriction>
-			</simpleType>
-			<simpleType name="string16">
-				<restriction base="xsd:string">
-					<minLength value="0" />
-					<maxLength value="16" />
-				</restriction>
-			</simpleType>
-			<xsd:simpleType name="string32">
-				<xsd:restriction base="xsd:string">
-					<xsd:minLength value="0" />
-					<xsd:maxLength value="32" />
-				</xsd:restriction>
-			</xsd:simpleType>
-			<xsd:simpleType name="string64">
-				<xsd:restriction base="xsd:string">
-					<xsd:minLength value="0" />
-					<xsd:maxLength value="64" />
-				</xsd:restriction>
-			</xsd:simpleType>
-			<xsd:simpleType name="string128">
-				<xsd:restriction base="xsd:string">
-					<xsd:minLength value="0" />
-					<xsd:maxLength value="128" />
-				</xsd:restriction>
-			</xsd:simpleType>
-
-			<xsd:simpleType name="string256">
-				<xsd:restriction base="xsd:string">
-					<xsd:minLength value="0" />
-					<xsd:maxLength value="256" />
-				</xsd:restriction>
-			</xsd:simpleType>
 
 			<simpleType name="user">
-				<restriction base="xsd:string">
+				<restriction base="string">
 					<minLength value="3" />
 					<maxLength value="20" />
 				</restriction>
@@ -262,31 +272,25 @@
 					<element name="id" type="int" />
 					<element name="status" type="int" />
 					<element name="type" type="impl:addressType" />
-					<element name="first_name" type="impl:string32" />
-					<element name="last_name" type="impl:string32" />
-					<element name="address1" type="impl:string64" />
-					<element name="address2" nillable="true" type="impl:string64" />
-					<element name="city" type="impl:string32" />
-					<element name="state" nillable="true" type="impl:string32" />
+					<element name="first_name" type="string" />
+					<element name="last_name" type="string" />
+					<element name="address1" type="string" />
+					<element name="address2" nillable="true" type="string" />
+					<element name="city" type="string" />
+					<element name="state" nillable="true" type="string" />
 					<element name="country" type="impl:countryCode" />
-					<element name="postal_code" nillable="true" type="impl:string32" />
-					<element name="phone" type="impl:string16" />
-					<element name="email" type="impl:string64" />
-					<element name="new_to_home_schooling" type="xsd:boolean" />
+					<element name="postal_code" nillable="true" type="string" />
+					<element name="phone" type="string" />
+					<element name="email" type="string" />
+					<element name="new_to_home_schooling" type="boolean" />
 					<element name="payment_profile_identifiers" type="string" minOccurs="0" maxOccurs="unbounded" />
-					<element name="created" type="xsd:dateTime" />
-					<element name="updated" type="xsd:dateTime" />
-				</sequence>
-			</complexType>
-
-			<complexType name="lineItem">
-				<sequence>
-					<element name="uhh_not_sure" type="string" />
+					<element name="created" type="dateTime" />
+					<element name="updated" type="dateTime" />
 				</sequence>
 			</complexType>
 
 			<simpleType name="cardType">
-				<restriction base="xsd:string">
+				<restriction base="string">
 					<enumeration value="visa" />
 					<enumeration value="mastercard" />
 					<enumeration value="amex" />
@@ -316,7 +320,7 @@
 				<all>
 					<element name="uid" nillable="true"  type="int" />
 					<element name="name" type="string" />
-					<element name="mail" type="impl:string64" />
+					<element name="mail" type="string" />
 					<element name="theme" nillable="true"  type="string" />
 					<element name="signature" nillable="true"  type="string" />
 					<element name="signature_format" nillable="true"  type="string" />
@@ -328,6 +332,33 @@
 					<element name="init" nillable="true"  type="string" />
 					<element name="uuid" nillable="true" type="string" />
 				</all>
+			</complexType>
+
+			<complexType name="customerBilling">
+				<sequence>
+					<element name="profile_id" type="string"  minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</complexType>
+	
+			<complexType name="customerShipping">
+				<sequence>
+					<element name="profile_id" type="string"  minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</complexType>
+
+			<complexType name="lineItem">
+				<sequence>
+					<element name="line_item_id" type="int" />
+					<element name="order_id" type="int" />
+					<element name="type" type="string" />
+					<element name="line_item_label" type="string" />
+					<element name="quantity" type="string" />
+					<element name="created" type="dateTime" />
+					<element name="changed" type="dateTime" />
+					<element name="line_item_title" type="string" />
+					<element name="commerce_unit_price_formatted" type="string" />
+					<element name="commerce_total_formatted" type="string" />
+				</sequence>
 			</complexType>
 
 			<complexType name="order">
@@ -351,9 +382,19 @@
   					<element name="fieldAopOrderNumber" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
  					<element name="fieldActivationCodes" type="string" minOccurs="0" maxOccurs="unbounded" />
  					<element name="commerceOrderTotalFormatted" type="string" />
-<!-- 					<element name="commerceOrderTotal" type="impl:orderTotal" /> -->
  					<element name="commerceDiscounts" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
-				</sequence>
+<!--  					<element name="commerceOrderTotal" type="impl:orderTotal" /> -->
+<!--
+   					<element name="commerceCustomerBilling" nillable="true" type="impl:customerBilling" minOccurs="0" maxOccurs="unbounded" />
+  					<element name="commerceCustomerShipping" nillable="true" type="impl:customerShipping" minOccurs="0" maxOccurs="unbounded"  />
+  					<element name="commerceLineItems" nillable="true" type="impl:lineItem" minOccurs="0" maxOccurs="unbounded" />
+ -->
+
+  					<element name="commerceCustomerBilling" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
+ 					<element name="commerceCustomerShipping" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded"  />
+ 					<element name="commerceLineItems" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded" />
+
+ 				</sequence>
 			</complexType>
 
 			<complexType name="orderTotal">
@@ -373,22 +414,22 @@
 			<complexType name="product">
 				<all>
 					<element name="revision_id" nillable="true" type="int" />
-					<element name="sku" type="impl:string16" />
-					<element name="title" type="impl:string256" />
+					<element name="sku" type="string" />
+					<element name="title" type="string" />
 					<element name="revision_uid" nillable="true" type="int" />
 					<element name="status" type="int" />
 <!--
  					<element name="status" type="impl:productStatus" />
 -->
 					<element name="log" nillable="true" type="string" />
-					<element name="revision_timestamp" nillable="true" type="xsd:dateTime" />
+					<element name="revision_timestamp" nillable="true" type="dateTime" />
 					<element name="data" nillable="true" type="boolean" />
 					<element name="product_id" nillable="true" type="int" />
 					<element name="product_type" type="impl:productType" />
 					<element name="language" nillable="true" type="string" />
 					<element name="uid" nillable="true" type="int" />
-					<element name="created" nillable="true" type="xsd:dateTime" />
-					<element name="changed" nillable="true"  type="xsd:dateTime" />
+					<element name="created" nillable="true" type="dateTime" />
+					<element name="changed" nillable="true"  type="dateTime" />
 					<element name="title_original" nillable="true" type="string" />
 					<element name="commerce_price_formatted" nillable="true" type="string" />
 
@@ -477,6 +518,44 @@
 		<wsdl:part element="impl:customersUpdatedSinceResponse" name="parameters">
 		</wsdl:part>
 	</wsdl:message>
+
+
+	<wsdl:message name="lineItemCreateRequest">
+		<wsdl:part element="impl:lineItemCreate" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="lineItemCreateResponse">
+		<wsdl:part element="impl:lineItemCreateResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="lineItemRetrieveRequest">
+		<wsdl:part element="impl:lineItemRetrieve" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="lineItemRetrieveResponse">
+		<wsdl:part element="impl:lineItemRetrieveResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="lineItemUpdateRequest">
+		<wsdl:part element="impl:lineItemUpdate" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="lineItemUpdateResponse">
+		<wsdl:part element="impl:lineItemUpdateResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="lineItemsUpdatedSinceRequest">
+		<wsdl:part element="impl:lineItemsUpdatedSince" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="lineItemsUpdatedSinceResponse">
+		<wsdl:part element="impl:lineItemsUpdatedSinceResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
 
 	<wsdl:message name="orderCreateRequest">
 		<wsdl:part element="impl:orderCreate" name="parameters">
@@ -579,6 +658,35 @@
 			<wsdl:input message="impl:customersUpdatedSinceRequest" name="customersUpdatedSinceRequest">
 			</wsdl:input>
 			<wsdl:output message="impl:customersUpdatedSinceResponse" name="customersUpdatedSinceResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="lineItemCreate">
+			<wsdl:input message="impl:lineItemCreateRequest" name="lineItemCreateRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:lineItemCreateResponse" name="lineItemCreateResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemRetrieve">
+			<wsdl:input message="impl:lineItemRetrieveRequest" name="lineItemRetrieveRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:lineItemRetrieveResponse" name="lineItemRetrieveResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemUpdate">
+			<wsdl:input message="impl:lineItemUpdateRequest" name="lineItemUpdateRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:lineItemUpdateResponse" name="lineItemUpdateResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemsUpdatedSince">
+			<wsdl:input message="impl:lineItemsUpdatedSinceRequest" name="lineItemsUpdatedSinceRequest">
+			</wsdl:input>
+			<wsdl:output message="impl:lineItemsUpdatedSinceResponse" name="lineItemsUpdatedSinceResponse">
 			</wsdl:output>
 		</wsdl:operation>
 
@@ -686,6 +794,48 @@
 			</wsdl:output>
 		</wsdl:operation>
 
+
+		<wsdl:operation name="lineItemCreate">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="lineItemCreateRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="lineItemCreateResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemRetrieve">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="lineItemRetrieveRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="lineItemRetrieveResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemUpdate">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="lineItemUpdateRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="lineItemUpdateResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="lineItemsUpdatedSince">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="lineItemsUpdatedSinceRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="lineItemsUpdatedSinceResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		
 		<wsdl:operation name="orderCreate">
 			<wsdlsoap:operation soapAction="" />
 			<wsdl:input name="orderCreateRequest">

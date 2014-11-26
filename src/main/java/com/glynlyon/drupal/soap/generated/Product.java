@@ -20,8 +20,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
  *         &lt;element name="revision_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="sku" type="{http://soap.drupal.glynlyon.com}string16"/>
- *         &lt;element name="title" type="{http://soap.drupal.glynlyon.com}string256"/>
+ *         &lt;element name="sku" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="revision_uid" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="log" type="{http://www.w3.org/2001/XMLSchema}string"/>

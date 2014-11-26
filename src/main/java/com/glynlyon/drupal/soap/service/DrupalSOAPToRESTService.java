@@ -6,12 +6,16 @@ import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.glynlyon.drupal.rest.model.DrupalCustomer;
+import com.glynlyon.drupal.rest.model.DrupalLineItem;
 import com.glynlyon.drupal.rest.model.DrupalOrder;
 import com.glynlyon.drupal.rest.model.DrupalProduct;
 import com.glynlyon.drupal.soap.generated.Customer;
 import com.glynlyon.drupal.soap.generated.CustomerRetrieve;
 import com.glynlyon.drupal.soap.generated.CustomerRetrieveResponse;
 import com.glynlyon.drupal.soap.generated.DrupalSOAPAdapter;
+import com.glynlyon.drupal.soap.generated.LineItem;
+import com.glynlyon.drupal.soap.generated.LineItemRetrieve;
+import com.glynlyon.drupal.soap.generated.LineItemRetrieveResponse;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
 
@@ -53,6 +57,33 @@ public class DrupalSOAPToRESTService extends AbstractDrupalRestClient implements
 	@Override
 	public List<Customer> customersUpdatedSince(final XMLGregorianCalendar date) {
 		List<Customer> updated = drupalUpdatedSince(Customer.class, date);
+		return updated;
+	}
+
+	@Override
+	public LineItem lineItemCreate(final LineItem lineItem) {
+		DrupalLineItem c = drupalCreate(toSubType(lineItem, DrupalLineItem.class));
+		return c;
+	}
+
+	@Override
+	public LineItemRetrieveResponse lineItemRetrieve(final LineItemRetrieve parameters) {
+		String id = parameters.getUserId();
+		DrupalLineItem o = drupalRetrieve(DrupalLineItem.class, id);
+		LineItemRetrieveResponse r = new LineItemRetrieveResponse();
+		r.setLineItemRetrieveReturn(o);
+		return r;
+	}
+
+	@Override
+	public LineItem lineItemUpdate(final LineItem lineItem) {
+		DrupalLineItem c = drupalUpdate(toSubType(lineItem, DrupalLineItem.class));
+		return c;
+	}
+
+	@Override
+	public List<LineItem> lineItemsUpdatedSince(final XMLGregorianCalendar date) {
+		List<LineItem> updated = drupalUpdatedSince(LineItem.class, date);
 		return updated;
 	}
 

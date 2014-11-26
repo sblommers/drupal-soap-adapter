@@ -21,7 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;all>
  *         &lt;element name="uid" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="mail" type="{http://soap.drupal.glynlyon.com}string64"/>
+ *         &lt;element name="mail" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="theme" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="signature_format" type="{http://www.w3.org/2001/XMLSchema}string"/>

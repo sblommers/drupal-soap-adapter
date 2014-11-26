@@ -28,15 +28,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ContainerNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.glynlyon.drupal.jmx.IDrupalConfigurationMBean;
 import com.glynlyon.drupal.rest.model.DrupalCustomer;
+import com.glynlyon.drupal.rest.model.DrupalLineItem;
 import com.glynlyon.drupal.rest.model.DrupalOrder;
 import com.glynlyon.drupal.rest.model.DrupalProduct;
 import com.glynlyon.drupal.rest.model.IDrupalModel;
 import com.glynlyon.drupal.soap.generated.Customer;
+import com.glynlyon.drupal.soap.generated.LineItem;
 import com.glynlyon.drupal.soap.generated.Order;
 import com.glynlyon.drupal.soap.generated.Product;
 
@@ -70,10 +72,12 @@ public abstract class AbstractDrupalRestClient {
 	public final static String SUFFIX = ".json";
 	public final static String MIME_TYPE = "application/json";
 	public final static String SINCE_KEY = "since";
+	public final static String UNDEFINED_KEY = "und";
 
 	public final static String DRUPAL_PATH_CUSTOMER = "/user";
 	public final static String DRUPAL_PATH_ORDER = "/order";
 	public final static String DRUPAL_PATH_PRODUCT = "/product";
+	public final static String DRUPAL_PATH_LINE_ITEM = "/line-item";
 
 	/**
 	 * Relative paths to Drupal endpoints are found here, keyed by both REST and
@@ -89,11 +93,14 @@ public abstract class AbstractDrupalRestClient {
 		m.put(Customer.class, DRUPAL_PATH_CUSTOMER);
 		m.put(Order.class, DRUPAL_PATH_ORDER);
 		m.put(Product.class, DRUPAL_PATH_PRODUCT);
+		m.put(LineItem.class, DRUPAL_PATH_LINE_ITEM);
 
 		// Also register the equivalent Drupal object types.
 		m.put(DrupalCustomer.class, DRUPAL_PATH_CUSTOMER);
 		m.put(DrupalOrder.class, DRUPAL_PATH_ORDER);
 		m.put(DrupalProduct.class, DRUPAL_PATH_PRODUCT);
+		m.put(DrupalLineItem.class, DRUPAL_PATH_LINE_ITEM);
+
 		TYPE_PATHS = Collections.unmodifiableMap(m);
 	}
 
@@ -114,49 +121,78 @@ public abstract class AbstractDrupalRestClient {
 	 * changed by this method to an "id" pair in the value data structure.
 	 */
 	public JsonNode restructureDrupalJsonForJackson(final String json) {
-		JsonNode tree = null;
+		JsonNode result = null;
 		try {
-			tree = restructureDrupalJsonForJackson(mapper.readTree(json));
+			JsonNode tree = mapper.readTree(json);
+			if (tree.getNodeType() == JsonNodeType.OBJECT) {
+				result = restructureDrupalJsonForJackson((ObjectNode) tree);
+			} else if (tree.getNodeType() == JsonNodeType.ARRAY) {
+				ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+				ArrayNode orig = (ArrayNode) tree;
+				for (JsonNode jsonNode : orig) {
+					if (jsonNode.getNodeType() == JsonNodeType.OBJECT) {
+						ObjectNode tmpNode = (ObjectNode) jsonNode;
+						arrayNode.add(restructureDrupalJsonForJackson(tmpNode));
+					} else {
+						arrayNode.add(jsonNode);
+					}
+				}
+				result = arrayNode;
+			}
 		} catch (final JsonProcessingException e) {
 			log.severe("Failed to parse JSON string. Something is probably broken." + e);
 		} catch (final IOException e) {
 			log.severe("Failed to parse JSON string. Something is probably broken." + e);
 		}
-		return tree;
+		return result;
 	}
 
-	public JsonNode restructureDrupalJsonForJackson(final JsonNode tree) {
-		for (JsonNode n : tree) {
-			// if(n.isContainerNode()) {
-			// @SuppressWarnings("rawtypes")
-			// ContainerNode cn = (ContainerNode) n;
-			// }
-			// switch (n.getNodeType()) {
-			// case OBJECT:
-			// ObjectNode on = (ObjectNode)n;
-			// Iterator<Entry<String, JsonNode>> fields = on.fields();
-			// while(fields.hasNext()) {
-			// Entry<String, JsonNode> next = fields.next();
-			// // If the key name is "und" or an integer, we'll restructure.
-			//
-			// }
-			// for (Map.Entry<String, JsonNode> e : on.fields()) {
-			//
-			// }
-			// break;
-			// case ARRAY:
-			// // Remove empty arrays
-			// ArrayNode an = (ArrayNode)n;
-			// if(an.size() == 0) {
-			// tree.
-			// }
-			// break;
-			// default:
-			// break;
-			// }
-			// System.out.println(n);
+	/**
+	 * Drupal as an extremely convoluted way of marshalling its native objects
+	 * to JSON, which seems to be only partially configurable. This function
+	 * copies the given tree into a new tree that removes some of the
+	 * intermediary structures. The give tree is not modified in any way.
+	 * 
+	 */
+	public ObjectNode restructureDrupalJsonForJackson(final ObjectNode tree) {
+		ObjectNode copy = new ObjectNode(JsonNodeFactory.instance);
+
+		Iterator<Entry<String, JsonNode>> rootFields = tree.fields();
+		while (rootFields.hasNext()) {
+			Entry<String, JsonNode> next = rootFields.next();
+			String rootKey = next.getKey();
+			JsonNode rootValue = next.getValue();
+			if (rootValue.getNodeType() == JsonNodeType.OBJECT) {
+				ObjectNode on = (ObjectNode) rootValue;
+				Iterator<Entry<String, JsonNode>> subFields = on.fields();
+				while (subFields.hasNext()) {
+					Entry<String, JsonNode> subNext = subFields.next();
+					String subKey = subNext.getKey();
+					JsonNode subValue = subNext.getValue();
+					// Restructure if we detect Drupal stupidity.
+					if (UNDEFINED_KEY.equalsIgnoreCase(subKey) || isInt(subKey)) {
+						if (subValue.getNodeType() == JsonNodeType.ARRAY) {
+							ArrayNode an = (ArrayNode) subValue;
+							copy.set(rootKey, an.deepCopy());
+						}
+					} else {
+						copy.set(rootKey, rootValue.deepCopy());
+					}
+				}
+			} else {
+				copy.set(rootKey, rootValue.deepCopy());
+			}
 		}
-		return tree;
+		return copy;
+	}
+
+	public static boolean isInt(String s) {
+		try {
+			Integer.parseInt(s);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 
 	public URI uriFor(final Class<? extends IDrupalModel> clazz, final String id) {
@@ -288,7 +324,7 @@ public abstract class AbstractDrupalRestClient {
 					log.warning("Hmm.. Drupal returned a non-object where one was expected. It will be ignored. Returned JSON type: " + nodeType);
 					break;
 				}
-//				System.out.println(nodeType);
+				// System.out.println(nodeType);
 			}
 		} catch (final Exception e) {
 			log.severe("Fatal error attempting to fetch updated " + clazz.getName() + " records. Provided 'since' date: " + date.toString());

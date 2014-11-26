@@ -24,16 +24,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="type" type="{http://soap.drupal.glynlyon.com}addressType"/>
- *         &lt;element name="first_name" type="{http://soap.drupal.glynlyon.com}string32"/>
- *         &lt;element name="last_name" type="{http://soap.drupal.glynlyon.com}string32"/>
- *         &lt;element name="address1" type="{http://soap.drupal.glynlyon.com}string64"/>
- *         &lt;element name="address2" type="{http://soap.drupal.glynlyon.com}string64"/>
- *         &lt;element name="city" type="{http://soap.drupal.glynlyon.com}string32"/>
- *         &lt;element name="state" type="{http://soap.drupal.glynlyon.com}string32"/>
+ *         &lt;element name="first_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="last_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address1" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address2" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="country" type="{http://soap.drupal.glynlyon.com}countryCode"/>
- *         &lt;element name="postal_code" type="{http://soap.drupal.glynlyon.com}string32"/>
- *         &lt;element name="phone" type="{http://soap.drupal.glynlyon.com}string16"/>
- *         &lt;element name="email" type="{http://soap.drupal.glynlyon.com}string64"/>
+ *         &lt;element name="postal_code" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="phone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="new_to_home_schooling" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="payment_profile_identifiers" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="created" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>

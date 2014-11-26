@@ -40,6 +40,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="fieldActivationCodes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="commerceOrderTotalFormatted" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="commerceDiscounts" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="commerceCustomerBilling" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="commerceCustomerShipping" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="commerceLineItems" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -68,7 +71,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "fieldAopOrderNumber",
     "fieldActivationCodes",
     "commerceOrderTotalFormatted",
-    "commerceDiscounts"
+    "commerceDiscounts",
+    "commerceCustomerBilling",
+    "commerceCustomerShipping",
+    "commerceLineItems"
 })
 public class Order {
 
@@ -108,6 +114,12 @@ public class Order {
     protected String commerceOrderTotalFormatted;
     @XmlElement(nillable = true)
     protected List<String> commerceDiscounts;
+    @XmlElement(nillable = true)
+    protected List<String> commerceCustomerBilling;
+    @XmlElement(nillable = true)
+    protected List<String> commerceCustomerShipping;
+    @XmlElement(nillable = true)
+    protected List<String> commerceLineItems;
 
     /**
      * Gets the value of the orderNumber property.
@@ -551,6 +563,93 @@ public class Order {
             commerceDiscounts = new ArrayList<String>();
         }
         return this.commerceDiscounts;
+    }
+
+    /**
+     * Gets the value of the commerceCustomerBilling property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the commerceCustomerBilling property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCommerceCustomerBilling().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getCommerceCustomerBilling() {
+        if (commerceCustomerBilling == null) {
+            commerceCustomerBilling = new ArrayList<String>();
+        }
+        return this.commerceCustomerBilling;
+    }
+
+    /**
+     * Gets the value of the commerceCustomerShipping property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the commerceCustomerShipping property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCommerceCustomerShipping().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getCommerceCustomerShipping() {
+        if (commerceCustomerShipping == null) {
+            commerceCustomerShipping = new ArrayList<String>();
+        }
+        return this.commerceCustomerShipping;
+    }
+
+    /**
+     * Gets the value of the commerceLineItems property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the commerceLineItems property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCommerceLineItems().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getCommerceLineItems() {
+        if (commerceLineItems == null) {
+            commerceLineItems = new ArrayList<String>();
+        }
+        return this.commerceLineItems;
     }
 
 }

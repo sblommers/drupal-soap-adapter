@@ -16,7 +16,7 @@ public class DrupalConfigurationMBean implements IDrupalConfigurationMBean {
 
 	/** Intended to be set an run-time via JMX. */
 //	protected String url = "http://localhost/rest";
-	protected String url = "http://dynamics-aophs.gotpantheon.com/gp";
+	protected String url = "http://dynamics-aophs.gotpantheon.com/preston_test";
 
 
 	/** Intended to be set an run-time via JMX. */
